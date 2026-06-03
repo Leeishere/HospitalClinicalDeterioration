@@ -1,0 +1,27 @@
+
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local utilities / experiments
+utils/ExperimentalClassificationHelperFuntions.py
+junk/
+OtherModels/
+
+# Large model artifacts and generated outputs
+*.joblib
+*.pkl
+*.zip
+
+# OS / Windows metadata
+.DS_Store
+Thumbs.db
+*.Zone.Identifier
+*:Zone.Identifier
