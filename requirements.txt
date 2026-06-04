@@ -1,0 +1,11 @@
+hdbscan
+imbalanced-learn
+ipykernel
+joblib
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+seaborn
+xgboost<2

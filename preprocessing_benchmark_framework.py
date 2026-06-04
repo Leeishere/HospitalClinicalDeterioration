@@ -41,6 +41,7 @@ from sklearn.preprocessing import (
     PowerTransformer,
     QuantileTransformer,
     RobustScaler,
+    StandardScaler,
 )
 from sklearn.svm import SVC
 
@@ -449,7 +450,7 @@ def _numeric_transformers() -> dict[str, Any]:
     """Return numeric transformers used for preprocessing benchmarking.
 
     Returns:
-        A dictionary with six entries:
+        A dictionary with seven entries:
 
         - ``"log_transformer"`` – ``FunctionTransformer(np.log1p)``
         - ``"power_transformer"`` –
@@ -457,6 +458,7 @@ def _numeric_transformers() -> dict[str, Any]:
         - ``"quantile_transformer"`` –
           ``QuantileTransformer(output_distribution='normal')``
         - ``"robust_scaler"`` – ``RobustScaler()``
+        - ``"standard_scaler"`` – ``StandardScaler()``
         - ``"custom_transformer"`` – ``FunctionTransformer(custom_ratio)``
         - ``"sqrt_transformer"`` – ``FunctionTransformer(np.sqrt)``
     """
@@ -468,6 +470,7 @@ def _numeric_transformers() -> dict[str, Any]:
             random_state=RANDOM_STATE,
         ),
         "robust_scaler": RobustScaler(),
+        "standard_scaler": StandardScaler(),
         "custom_transformer": FunctionTransformer(custom_ratio, validate=True),
         "sqrt_transformer": FunctionTransformer(np.sqrt, validate=True),
     }
@@ -1312,9 +1315,9 @@ def run_preprocessing_benchmark(
             quick smoke tests).
         n_random_iterations_override: Override ``n_iter`` for
             ``RandomizedSearchCV``.
-        add_polynomial: If ``True``, also test squared-only, cubed-only, and
-            squared+cubed feature augmentations in addition to the baseline
-            (no polynomial).  Defaults to ``True``.
+        add_polynomial: If ``True``, test two polynomial modes in addition to
+            the shared baseline logic: baseline (no polynomial) and
+            squared+cubed together. Defaults to ``True``.
         score_priority: Ordered list of metric names used to sort the output.
             Defaults to ``['recall', 'precision', 'accuracy', 'f1',
             'roc_auc']``.  The first entry is the primary sort key.
@@ -1458,7 +1461,7 @@ def run_preprocessing_benchmark(
 
     poly_options: list[tuple[bool, bool]] = [(False, False)]
     if add_polynomial:
-        poly_options += [(True, False), (False, True), (True, True)]
+        poly_options.append((True, True))
 
     reduction_factor = (
         train_size_reduction_factor_override

@@ -25,3 +25,14 @@ OtherModels/
 Thumbs.db
 *.Zone.Identifier
 *:Zone.Identifier
+
+
+archive (10).zip
+
+random_forest
+logistic
+junk
+xgboost
+adaboost_perceptron_2_models
+adaboost_mlp
+adaboost_logistic
