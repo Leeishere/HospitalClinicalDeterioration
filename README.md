@@ -122,6 +122,7 @@
 ### selected_model_plots.png
 
 ![selected_model_plots.png](SelectedModel/selected_model_plots.png)
+[View the notebook on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model)
 
 ## Other Model Variations
 

@@ -28,7 +28,7 @@ Thumbs.db
 
 
 archive (10).zip
-
+OtherModels
 random_forest
 logistic
 junk
@@ -36,3 +36,8 @@ xgboost
 adaboost_perceptron_2_models
 adaboost_mlp
 adaboost_logistic
+adaboost_svc
+
+HyperparameterTuning.py
+preprocessing_benchmark_framework.py
+HCD_utils.py

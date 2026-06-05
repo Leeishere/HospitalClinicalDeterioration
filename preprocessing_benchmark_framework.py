@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+import gc
 import warnings
 from zipfile import ZipFile
 
@@ -1259,6 +1260,7 @@ def run_preprocessing_benchmark(
     add_polynomial: bool = True,
     score_priority: list[str] | None = None,
     top_n: int = 5,
+    save_prediction_artifacts: bool = False,
 ) -> tuple[
     pd.DataFrame,
     dict[str, Any],
@@ -1323,6 +1325,10 @@ def run_preprocessing_benchmark(
             'roc_auc']``.  The first entry is the primary sort key.
         top_n: Number of top rows to collect per metric when building
             ``top_combined``.  Defaults to ``5``.
+        save_prediction_artifacts: If ``True``, retain per-run prediction
+            arrays (``y_test``, ``y_pred``, ``y_score`` and joined variants)
+            inside ``strategy_artifacts`` for downstream plotting. Defaults
+            to ``False`` to reduce RAM usage during large benchmark runs.
 
     Returns:
         A 6-tuple ``(results_df, strategy_artifacts, top_per_metric,
@@ -1632,13 +1638,40 @@ def run_preprocessing_benchmark(
                         "model": estimator,
                         "numeric_columns": numeric_cols,
                         "categorical_columns": categorical_cols,
-                        "y_test": y_test_df,
-                        "y_pred": y_pred_test,
-                        "y_score": y_score_test,
-                        "y_test_joined": y_test_joined,
-                        "y_pred_joined": y_pred_joined,
-                        "y_score_joined": y_score_joined,
                     }
+                    if save_prediction_artifacts:
+                        strategy_artifacts[run_id].update(
+                            {
+                                "y_test": y_test_df,
+                                "y_pred": y_pred_test,
+                                "y_score": y_score_test,
+                                "y_test_joined": y_test_joined,
+                                "y_pred_joined": y_pred_joined,
+                                "y_score_joined": y_score_joined,
+                            }
+                        )
+
+                    # Release large per-iteration objects to reduce peak RAM.
+                    del (
+                        X_train_poly,
+                        X_test_poly,
+                        X_train_joined_poly,
+                        X_test_joined_poly,
+                        X_train_proc,
+                        X_test_proc,
+                        X_train_joined_proc,
+                        X_test_joined_proc,
+                        X_fit,
+                        y_fit,
+                        estimator,
+                        y_pred_test,
+                        y_score_test,
+                        y_pred_train,
+                        y_score_train,
+                        y_pred_joined,
+                        y_score_joined,
+                    )
+                    gc.collect()
 
                     if (
                         max_combinations is not None
