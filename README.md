@@ -1,4 +1,4 @@
-# Hospital Clinical Deterioration
+# Predict 98.7% of Hospital Clinical Deteriorations
 
 ## Exploratory Data Analysis (EDA)
 
@@ -122,8 +122,9 @@
 ### selected_model_plots.png
 
 ![selected_model_plots.png](SelectedModel/selected_model_plots.png)
+`P(pred det | det) = 0.987   |   Probability that A deterioration WILL BE PREDICTED AS A DETERIORATION given that deterioration WILL HAPPEN within the next 12 hours.`
 [View the notebook on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model)
 
 ## Other Model Variations
 
-[View additional HCD model variations on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model-variations)
+[View more HCD models on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model-variations)
