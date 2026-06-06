@@ -122,8 +122,8 @@
 ### selected_model_plots.png
 
 ![selected_model_plots.png](SelectedModel/selected_model_plots.png)
-`P(pred det | det) = 0.987   |   Probability that A deterioration WILL BE PREDICTED AS A DETERIORATION given that deterioration WILL HAPPEN within the next 12 hours.`
-[View the notebook on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model)
+`Probability that A deterioration WILL BE PREDICTED AS A DETERIORATION given that deterioration WILL HAPPEN within the next 12 hours: P(pred det | det) = 0.987`  
+[View the notebook on Kaggle](https://www.kaggle.com/code/lelandmesford/hcd-model)  
 
 ## Other Model Variations
 
