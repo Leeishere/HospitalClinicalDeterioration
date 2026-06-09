@@ -102,8 +102,8 @@
       </table>
     </td>
     <td align="center" width="33%">
-      <strong>after_transformation_test_resulsts.png</strong><br>
-      <img src="Images/after_transformation_test_resulsts.png" alt="after_transformation_test_resulsts.png" width="260">
+      <strong>after_transformation_test_results.png</strong><br>
+      <img src="Images/after_transformation_test_results.png" alt="after_transformation_test_results.png" width="260">
     </td>
   </tr>
 </table>
